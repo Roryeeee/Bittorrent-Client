@@ -58,9 +58,9 @@ function buildConnReq() {
 
 function parseConnResp(resp) {
   return {
-    action: resp.readUInt32BE(0),
-    transactionId: resp.readUInt32BE(4),
-    connectionId: resp.slice(8)
+    action: resp.readUInt32BE(0),//read 4 byte unsigned integer from offset 0(should always be 0)
+    transactionId: resp.readUInt32BE(4),//read 4 byte transaction ID at offset 4(should match the randon transId sent in the request, ensuring the response is valid)
+    connectionId: resp.slice(8)//extract last 8 byte offset 8 to 15(connection id is assigned by the tracker)
   }
 }
 
