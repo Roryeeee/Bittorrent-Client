@@ -43,15 +43,15 @@ function respType(resp) {
 
 const crypto = require('crypto');
 function buildConnReq() {
-  const buf = Buffer.alloc(16);
+  const buf = Buffer.alloc(16); // 16-byte buffer allocated to store the conn req msg
 
   //connection id
-  buf.writeUInt32BE(0x417, 0);
-  buf.writeUInt32BE(0x27101980, 4);
+  buf.writeUInt32BE(0x417, 0); // 4 butes is written at offset 0
+  buf.writeUInt32BE(0x27101980, 4);// 4 butes is written at offset 4
 //action
-  buf.writeUInt32BE(0, 8);
+  buf.writeUInt32BE(0, 8);//4 bytes at offset 8 representing the action
 //transaction id
-  crypto.randonBytes(4).copy(buf, 12);
+  crypto.randonBytes(4).copy(buf, 12);//4 bytes starting at offset 12 store a random transac ID
 
   return buf;
 }
