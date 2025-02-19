@@ -2,6 +2,9 @@
 
 const dgram = require('dgram'); // this is for sending/receiving UDP packets
 const Buffer = require('buffer').Buffer; // lets us handle binary data
+const crypto = require('crypto');
+const torrentParser = require('./torrent-parser');
+const util = require('./util');
 
 // function to get peers from the tracker
 module.exports.getPeers = (torrent, callback) => {
@@ -41,7 +44,7 @@ function respType(resp) {
   // ...
 }
 
-const crypto = require('crypto');
+
 function buildConnReq() {
   const buf = Buffer.alloc(16); // 16-byte buffer allocated to store the conn req msg
 
@@ -65,8 +68,7 @@ function parseConnResp(resp) {
 }
 
 
-const torrentParser = require('./torrent-parser');
-const util = require('./util');
+
 
 module.exports.getPeers = (torrent, callback) => {
   const announceReq = buildAnnounceReq(connResp.connectionId, torrent);
